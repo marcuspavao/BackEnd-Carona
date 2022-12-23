@@ -22,7 +22,7 @@ export class PrismaRideRepository implements RideRepository {
     return PrismaRideMapper.toDomain(ride);
   }
 
-  async findManyByRecipientId(riderId: string): Promise<Ride[]> {
+  async findManyByRidersId(riderId: string): Promise<Ride[]> {
     const notifications = await this.prisma.ride.findMany({
       where: {
         riderId,
@@ -32,7 +32,7 @@ export class PrismaRideRepository implements RideRepository {
     return notifications.map(PrismaRideMapper.toDomain);
   }
 
-  async countManyByRecipientId(riderId: string): Promise<number> {
+  async countManyByRidersId(riderId: string): Promise<number> {
     const count = await this.prisma.ride.count({
       where: {
         riderId,
