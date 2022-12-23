@@ -12,14 +12,10 @@ type CancelRideResponse = void;
 export class CancelRide {
   constructor(private notificationsRepository: RideRepository) {}
 
-  async execute(
-    request: CancelRideRequest,
-  ): Promise<CancelRideResponse> {
+  async execute(request: CancelRideRequest): Promise<CancelRideResponse> {
     const { rideId } = request;
 
-    const ride = await this.notificationsRepository.findById(
-      rideId,
-    );
+    const ride = await this.notificationsRepository.findById(rideId);
 
     if (!ride) {
       throw new RideNotFound();

@@ -8,8 +8,8 @@ describe('Notification', () => {
       info: 'Fake info',
       departureLocal: 'Mariana',
       arrivalLocal: 'Ouro Preto',
-      arrivingDate: new Date(),
-      departureDate: new Date(),
+      arrivingDate: 'new Date()',
+      departureDate: 'new Date()',
     });
 
     expect(ride).toBeTruthy();

@@ -16,10 +16,7 @@ export class Ride {
   private _id: string;
   private props: RideProps;
 
-  constructor(
-    props: Replace<RideProps, { createdAt?: Date }>,
-    id?: string,
-  ) {
+  constructor(props: Replace<RideProps, { createdAt?: Date }>, id?: string) {
     this._id = id ?? randomUUID();
     this.props = {
       ...props,

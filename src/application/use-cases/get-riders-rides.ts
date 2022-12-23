@@ -12,14 +12,12 @@ interface GetRidersResponse {
 
 @Injectable()
 export class GetRiderRides {
-  constructor(private notificationsRepository: RideRepository) {}
+  constructor(private ridesRepository: RideRepository) {}
 
-  async execute(
-    request: GetRidersRequest,
-  ): Promise<GetRidersResponse> {
+  async execute(request: GetRidersRequest): Promise<GetRidersResponse> {
     const { riderId } = request;
 
-    const rides = await this.notificationsRepository.findManyByRecipientId(riderId);
+    const rides = await this.ridesRepository.findManyByRidersId(riderId);
 
     return {
       rides,

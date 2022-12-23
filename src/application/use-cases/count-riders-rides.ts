@@ -13,14 +13,10 @@ interface CountRidesResponse {
 export class CountRides {
   constructor(private rideRepository: RideRepository) {}
 
-  async execute(
-    request: CountRidesRequest,
-  ): Promise<CountRidesResponse> {
+  async execute(request: CountRidesRequest): Promise<CountRidesResponse> {
     const { riderId } = request;
 
-    const count = await this.rideRepository.countManyByRecipientId(
-      riderId,
-    );
+    const count = await this.rideRepository.countManyByRidersId(riderId);
 
     return {
       count,
