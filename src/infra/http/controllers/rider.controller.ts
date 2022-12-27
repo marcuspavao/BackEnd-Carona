@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateRiderBody } from '../dtos/create-rider-body';
 import { RiderViewModel } from '@infra/http/view-models/rider-view-model';
-import { CreateRider } from '@application/use-cases/create-rider';
-import { UpdateCarId } from '@application/use-cases/update-carId-rider';
-import { GetInfoRider } from '@application/use-cases/inforider-rider';
+import { CreateRider } from '@application/use-cases/rider/create-rider';
+import { UpdateCarId } from '@application/use-cases/rider/update-carId-rider';
+import { GetInfoRider } from '@application/use-cases/rider/inforider-rider';
 
 @Controller('rider')
 export class RiderController {

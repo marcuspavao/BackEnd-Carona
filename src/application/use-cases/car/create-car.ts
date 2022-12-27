@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CarRepository } from '../repositories/car-repository';
-import { Car } from '../entities/car';
+import { CarRepository } from '../../repositories/car-repository';
+import { Car } from '../../entities/car';
 
 interface CreateCarRequest {
   model: string;

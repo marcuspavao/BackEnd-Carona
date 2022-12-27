@@ -1,4 +1,4 @@
-import { GetRiderRides } from './get-riders-rides';
+import { GetRiderRides } from './rides/get-riders-rides';
 import { makeRide } from '../../../test/factories/rides-factory';
 import { InMemoryRideRepository } from '../../../test/repositories/in-memory-rides-repository';
 

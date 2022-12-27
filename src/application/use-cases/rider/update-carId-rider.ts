@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { RiderRepository } from '../repositories/rider-repository';
+import { RiderRepository } from '../../repositories/rider-repository';
 
 interface UpdateCarIdRequest {
   riderId: string;

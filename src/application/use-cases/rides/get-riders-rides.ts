@@ -1,6 +1,6 @@
-import { Ride } from '../entities/ride';
+import { Ride } from '../../entities/ride';
 import { Injectable } from '@nestjs/common';
-import { RideRepository } from '../repositories/ride-repository';
+import { RideRepository } from '../../repositories/ride-repository';
 
 interface GetRidersRequest {
   riderId: string;

@@ -1,6 +1,6 @@
-import { RideNotFound } from './errors/ride-not-found';
+import { RideNotFound } from '../errors/ride-not-found';
 import { Injectable } from '@nestjs/common';
-import { RideRepository } from '../repositories/ride-repository';
+import { RideRepository } from '../../repositories/ride-repository';
 import { badRequest } from '@helpers/http-helper';
 
 interface CancelRideRequest {

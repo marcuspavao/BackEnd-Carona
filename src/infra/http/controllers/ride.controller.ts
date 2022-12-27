@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { GetRiderRides } from '@application/use-cases/get-riders-rides';
+import { GetRiderRides } from '@application/use-cases/rides/get-riders-rides';
 import { CreateRideBody } from '../dtos/create-ride-body';
 import { RideViewModel } from '@infra/http/view-models/ride-view-model';
-import { CreateRide } from '@application/use-cases/create-ride';
-import { CountRides } from '@application/use-cases/count-riders-rides';
-import { CancelRide } from '@application/use-cases/cancel-ride';
+import { CreateRide } from '@application/use-cases/rides/create-ride';
+import { CountRides } from '@application/use-cases/rides/count-riders-rides';
+import { CancelRide } from '@application/use-cases/rides/cancel-ride';
 
 @Controller('rides')
 export class RideController {
