@@ -7,6 +7,7 @@ export interface RideProps {
   departureLocal: string;
   arrivalLocal: string;
   arrivingDate: string;
+  isFull?: boolean;
   departureDate: string;
   canceledAt?: Date | null;
   createdAt: Date;
@@ -34,6 +35,14 @@ export class Ride {
 
   public get riderId(): string {
     return this.props.riderId;
+  }
+
+  public set isFull(isFull: boolean) {
+    this.props.isFull = isFull;
+  }
+
+  public get isFull(): boolean {
+    return this.props.isFull;
   }
 
   public set departureLocal(departureLocal: string) {

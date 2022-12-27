@@ -6,6 +6,7 @@ export class RideViewModel {
       id: ride.id,
       riderId: ride.riderId,
       info: ride.info,
+      isFull: ride.isFull,
       arrivalLocal: ride.arrivalLocal,
       arrivingDate: ride.arrivingDate,
       departureDate: ride.departureDate,

@@ -1,28 +1,29 @@
-import { RideNotFound } from '@application/use-cases/errors/ride-not-found';
+import { RideNotFound } from './errors/ride-not-found';
 import { Injectable } from '@nestjs/common';
 import { RideRepository } from '../repositories/ride-repository';
+import { badRequest } from '@helpers/http-helper';
 
 interface CancelRideRequest {
   rideId: string;
 }
 
-type CancelRideResponse = void;
+type CancelRideResponse = any;
 
 @Injectable()
 export class CancelRide {
-  constructor(private notificationsRepository: RideRepository) {}
+  constructor(private rideRepository: RideRepository) {}
 
   async execute(request: CancelRideRequest): Promise<CancelRideResponse> {
     const { rideId } = request;
 
-    const ride = await this.notificationsRepository.findById(rideId);
+    const ride = await this.rideRepository.findById(rideId);
 
     if (!ride) {
-      throw new RideNotFound();
+      return badRequest(new RideNotFound());
     }
 
     ride.cancel();
 
-    await this.notificationsRepository.save(ride);
+    await this.rideRepository.save(ride);
   }
 }

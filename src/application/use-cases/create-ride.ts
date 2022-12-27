@@ -16,7 +16,7 @@ interface CreateRideResponse {
 }
 
 @Injectable()
-export class CraeteRide {
+export class CreateRide {
   constructor(private notificationsRepository: RideRepository) {}
 
   async execute(request: CreateRideRequest): Promise<CreateRideResponse> {

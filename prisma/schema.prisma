@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ride {
+  id             String    @id @unique
+  rider          Rider     @relation(fields: [riderId], references: [id])
+  riderId        String    @unique
+  info           String
+  departureLocal String
+  arrivalLocal   String
+  arrivingDate   DateTime
+  departureDate  DateTime
+  isFull         Boolean   @default(false)
+  canceledAt     DateTime?
+  createdAt      DateTime  @default(now())
+}
+
+model Rider {
+  id    String @id
+  name  String
+  cpf   String
+  car   Car?   
+  carId String?
+  rides Ride[]
+}
+
+model Car {
+  id        String @id
+  model     String
+  modelYear String
+  plate     String
+  rider     Rider @relation(fields: [riderId], references: [id])
+  riderId   String @unique @default("") 
+}

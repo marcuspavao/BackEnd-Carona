@@ -2,24 +2,29 @@ import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { GetRiderRides } from '@application/use-cases/get-riders-rides';
 import { CreateRideBody } from '../dtos/create-ride-body';
 import { RideViewModel } from '@infra/http/view-models/ride-view-model';
-import { CraeteRide } from '@application/use-cases/create-ride';
+import { CreateRide } from '@application/use-cases/create-ride';
 import { CountRides } from '@application/use-cases/count-riders-rides';
 import { CancelRide } from '@application/use-cases/cancel-ride';
 
 @Controller('rides')
 export class RideController {
   constructor(
-    private createRide: CraeteRide,
+    private createRide: CreateRide,
     private countRidersRides: CountRides,
     private getRidersRides: GetRiderRides,
-    private cancelRide: CancelRide
-  ) { }
+    private cancelRide: CancelRide,
+  ) {}
 
   @Patch(':id/cancel')
   async cancel(@Param('id') id: string) {
-    await this.cancelRide.execute({
+    const { body, statusCode } = await this.cancelRide.execute({
       rideId: id,
     });
+
+    return {
+      error: body.message,
+      statusCode: statusCode,
+    };
   }
 
   @Get('count/from/:riderId')
@@ -60,7 +65,14 @@ export class RideController {
 
   @Post()
   async create(@Body() body: CreateRideBody) {
-    const { arrivalLocal, arrivingDate, departureDate, departureLocal, info, riderId } = body;
+    const {
+      arrivalLocal,
+      arrivingDate,
+      departureDate,
+      departureLocal,
+      info,
+      riderId,
+    } = body;
 
     const { ride } = await this.createRide.execute({
       arrivalLocal,
@@ -68,7 +80,7 @@ export class RideController {
       departureDate,
       departureLocal,
       info,
-      riderId
+      riderId,
     });
 
     return {
