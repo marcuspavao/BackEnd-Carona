@@ -1,7 +1,8 @@
-import { IsNotEmpty } from 'class-validator'; //IsDate, IsNotEmpty, IsUUID, Length
+import { IsNotEmpty, IsUUID } from 'class-validator'; //IsDate, IsNotEmpty, IsUUID, Length
 
 export class CreateRideBody {
   @IsNotEmpty()
+  @IsUUID()
   riderId: string;
 
   info: string;

@@ -22,12 +22,16 @@ model Ride {
 }
 
 model Rider {
-  id    String @id
-  name  String
-  cpf   String
-  car   Car?   
-  carId String?
-  rides Ride[]
+  id                   String  @id
+  name                 String
+  cpf                  String
+  email                String  @unique @default("")
+  password             String  @default("")
+  passwordConfirmation String  @default("")
+  role                 Role    @default(ADMIN)
+  car                  Car?
+  carId                String?
+  rides                Ride[]
 }
 
 model Car {
@@ -35,6 +39,11 @@ model Car {
   model     String
   modelYear String
   plate     String
-  rider     Rider @relation(fields: [riderId], references: [id])
-  riderId   String @unique @default("") 
+  rider     Rider  @relation(fields: [riderId], references: [id])
+  riderId   String @unique @default("")
+}
+
+enum Role {
+  USER
+  ADMIN
 }

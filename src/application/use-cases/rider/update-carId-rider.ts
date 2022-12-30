@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Role } from '@prisma/client';
 import { RiderRepository } from '../../repositories/rider-repository';
 
 interface UpdateCarIdRequest {
@@ -17,7 +18,9 @@ export class UpdateCarId {
 
     const rider = await this.riderRepository.findById(riderId);
 
-    rider.update(id);
+    rider.carId = id;
+    rider.role = Role['ADMIN'];
+    //rider.update(id);
 
     await this.riderRepository.updateCar(rider);
   }

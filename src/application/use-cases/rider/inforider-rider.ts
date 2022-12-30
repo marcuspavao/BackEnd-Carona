@@ -2,32 +2,36 @@ import { Rider } from '../../entities/rider';
 import { Injectable } from '@nestjs/common';
 import { RiderRepository } from '../../repositories/rider-repository';
 
-interface GetInfoRequest {
-  riderId: any;
-}
+type GetInfoRequest = any;
 
-interface GetInfoResponse {
-  rider: Rider;
-}
+type GetInfoResponse = any;
 
 @Injectable()
 export class GetInfoRider {
   constructor(private riderRepository: RiderRepository) {}
 
   async execute(request: GetInfoRequest): Promise<GetInfoResponse> {
-    const { riderId } = request;
-    if (!riderId.id) {
-      const rider = await this.riderRepository.findById(riderId);
+    const { ...body } = request;
 
-      return {
-        rider,
-      };
-    }
-
-    const rider = await this.riderRepository.findById(riderId.id);
+    console.log(body);
+    const rider = await this.riderRepository.findByArg(body);
 
     return {
       rider,
     };
   }
 }
+
+/* async execute(request: GetInfoRequest): Promise<GetInfoResponse> {
+  const { ...body } = request;
+  const props = ['email', 'riderId'];
+  props.map((element) => {
+    console.log(body.hasOwnProperty(element));
+  });
+  console.log(body);
+  const rider = await this.riderRepository.findById(body.riderId);
+
+  return {
+    rider,
+  };
+} */

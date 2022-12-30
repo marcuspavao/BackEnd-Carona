@@ -1,37 +1,34 @@
-/* import { CountRecipientNotifications } from '@application/use-cases/count-recipient-notifications';
-import { makeNotification } from '@test/factories/notification-factory';
-import { InMemoryNotificationsRepository } from '@test/repositories/in-memory-notifications-repository';
+import { CountRides } from './count-riders-rides';
+import { makeRide } from '../../../../test/factories/rides-factory';
+import { InMemoryRideRepository } from '../../../../test/repositories/in-memory-rides-repository';
 
-describe('Count recipient notifications', () => {
+describe('Get recipient notifications', () => {
   it('should be able to recipient notifications', async () => {
-    const notificationsRepository = new InMemoryNotificationsRepository();
-    const countRecipientNotifications = new CountRecipientNotifications(
-      notificationsRepository,
-    );
+    const rideRepository = new InMemoryRideRepository();
+    const countRidersRides = new CountRides(rideRepository);
 
-    await notificationsRepository.create(
-      makeNotification({
-        recipientId: 'recipient-1',
+    await rideRepository.create(
+      makeRide({
+        riderId: 'recipient-1',
       }),
     );
 
-    await notificationsRepository.create(
-      makeNotification({
-        recipientId: 'recipient-1',
+    await rideRepository.create(
+      makeRide({
+        riderId: 'recipient-1',
       }),
     );
 
-    await notificationsRepository.create(
-      makeNotification({
-        recipientId: 'recipient-2',
+    await rideRepository.create(
+      makeRide({
+        riderId: 'recipient-2',
       }),
     );
 
-    const { count } = await countRecipientNotifications.execute({
-      recipientId: 'recipient-1',
+    const { count } = await countRidersRides.execute({
+      riderId: 'recipient-1',
     });
 
     expect(count).toBe(2);
   });
 });
- */

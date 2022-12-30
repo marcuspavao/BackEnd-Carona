@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RideRepository } from '../../repositories/ride-repository';
 import { Ride } from '../../entities/ride';
+//import { isUUID } from 'class-validator';
 
 interface CreateRideRequest {
   riderId: string;
@@ -12,12 +13,12 @@ interface CreateRideRequest {
 }
 
 interface CreateRideResponse {
-  ride: Ride;
+  ride?: Ride;
 }
 
 @Injectable()
 export class CreateRide {
-  constructor(private notificationsRepository: RideRepository) {}
+  constructor(private rideRepository: RideRepository) {}
 
   async execute(request: CreateRideRequest): Promise<CreateRideResponse> {
     const {
@@ -29,6 +30,10 @@ export class CreateRide {
       riderId,
     } = request;
 
+    /*     if (!isUUID(riderId)) {
+      return badRequest(new RiderIDnotUUID());
+    } */
+
     const ride = new Ride({
       arrivalLocal,
       arrivingDate,
@@ -38,7 +43,7 @@ export class CreateRide {
       riderId,
     });
 
-    await this.notificationsRepository.create(ride);
+    await this.rideRepository.create(ride);
 
     return {
       ride,

@@ -10,15 +10,28 @@ import {
   CreateRider,
   GetInfoRider,
   UpdateCarId,
+  GetAllRider,
 } from '@application/use-cases/';
 import { RideController } from './controllers/ride.controller';
 import { RiderController } from './controllers/rider.controller';
 import { CarController } from './controllers/car.controller';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { APP_GUARD } from '@nestjs/core/constants';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [RideController, RiderController, CarController],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+    /*     {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    }, */
+    GetAllRider,
     CreateRide,
     CountRides,
     GetRiderRides,
@@ -27,6 +40,7 @@ import { CarController } from './controllers/car.controller';
     CreateCar,
     UpdateCarId,
     GetInfoRider,
+    JwtService,
   ],
 })
 export class HttpModule {}

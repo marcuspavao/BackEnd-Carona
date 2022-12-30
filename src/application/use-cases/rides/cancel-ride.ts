@@ -1,7 +1,7 @@
 import { RideNotFound } from '../errors/ride-not-found';
 import { Injectable } from '@nestjs/common';
 import { RideRepository } from '../../repositories/ride-repository';
-import { badRequest } from '@helpers/http-helper';
+import { badRequest, ok } from '@helpers/http-helper';
 
 interface CancelRideRequest {
   rideId: string;
@@ -25,5 +25,7 @@ export class CancelRide {
     ride.cancel();
 
     await this.rideRepository.save(ride);
+
+    return ok('Ride was successfully canceled');
   }
 }

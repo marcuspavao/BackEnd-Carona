@@ -22,7 +22,7 @@ export class RideController {
     });
 
     return {
-      error: body.message,
+      message: body.message,
       statusCode: statusCode,
     };
   }

@@ -5,4 +5,5 @@ export * from './rides/get-riders-rides';
 export * from './rider/inforider-rider';
 export * from './rider/update-carId-rider';
 export * from './rider/create-rider';
+export * from './rider/getall-rider';
 export * from './car/create-car';

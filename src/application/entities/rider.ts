@@ -1,16 +1,27 @@
 import { randomUUID } from 'node:crypto';
 import { Car } from './Car';
+import { Email } from './email';
+import { hashSync } from 'bcrypt';
+import { Role } from '@prisma/client';
 
 export interface RiderProps {
   name: string;
   cpf: string;
+  email: Email;
+  password: string;
+  passwordConfirmation: string;
   carId: string;
+  role?: Role;
   car?: Car;
 }
 
 export class Rider {
+  static email(email: any) {
+    throw new Error('Method not implemented.');
+  }
   private _id: string;
   private props: RiderProps;
+  static props: any;
 
   constructor(props: RiderProps, id?: string) {
     this._id = id ?? randomUUID();
@@ -29,6 +40,36 @@ export class Rider {
 
   public get name(): string {
     return this.props.name;
+  }
+  public set role(role: Role) {
+    this.props.role = role;
+  }
+
+  public get role(): Role {
+    return this.props.role;
+  }
+
+  public set password(password: string) {
+    this.props.password = hashSync(password, 12);
+  }
+
+  public get password(): string {
+    return this.props.password;
+  }
+  public set passwordConfirmation(passwordConfirmation: string) {
+    this.props.passwordConfirmation = passwordConfirmation;
+  }
+
+  public get passwordConfirmation(): string {
+    return this.props.passwordConfirmation;
+  }
+
+  public set email(email: Email) {
+    this.props.email = email;
+  }
+
+  public get email(): Email {
+    return this.props.email;
   }
 
   public set car(car: Car) {

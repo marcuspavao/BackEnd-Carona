@@ -1,9 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CreateCarBody } from '../dtos/create-car-body';
 import { UpdateCarId } from '@application/use-cases/rider/update-carId-rider';
 import { CarViewModel } from '@infra/http/view-models/car-view-model';
 import { CreateCar } from '@application/use-cases/car/create-car';
-
+import { AuthGuard } from '@nestjs/passport';
+//@UseGuards(AuthGuard('jwt'))
 @Controller('car')
 export class CarController {
   constructor(private createCar: CreateCar, private updateCarId: UpdateCarId) {}
