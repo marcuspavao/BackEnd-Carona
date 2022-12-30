@@ -18,6 +18,7 @@ import { CarController } from './controllers/car.controller';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { APP_GUARD } from '@nestjs/core/constants';
 import { JwtService } from '@nestjs/jwt';
+import { UpdateArg } from '@application/use-cases/rider/update-arg';
 
 @Module({
   imports: [DatabaseModule],
@@ -32,6 +33,7 @@ import { JwtService } from '@nestjs/jwt';
       useClass: JwtAuthGuard,
     }, */
     GetAllRider,
+    UpdateArg,
     CreateRide,
     CountRides,
     GetRiderRides,

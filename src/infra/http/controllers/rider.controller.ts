@@ -11,6 +11,7 @@ import {
 import { CreateRiderBody } from '../dtos/create-rider-body';
 import { RiderViewModel } from '@infra/http/view-models/rider-view-model';
 import { CreateRider } from '@application/use-cases/rider/create-rider';
+import { UpdateArg } from '@application/use-cases/rider/update-arg';
 import { UpdateCarId } from '@application/use-cases/rider/update-carId-rider';
 import { GetInfoRider } from '@application/use-cases/rider/inforider-rider';
 import { GetAllRider } from '@application/use-cases/rider/getall-rider';
@@ -25,6 +26,7 @@ export class RiderController {
   constructor(
     private createRider: CreateRider,
     private updateCarId: UpdateCarId,
+    private updateArg: UpdateArg,
     private getInfo: GetInfoRider,
     private getAll: GetAllRider,
     private jwtService: JwtService,
@@ -86,7 +88,8 @@ export class RiderController {
     };
   } */
 
-  @Get('from/:riderId')
+  //@Get('from/:riderId')
+  @Get('from/riderId')
   async getFromRider(@Body() req: any) {
     const { ...body } = req;
 
@@ -95,7 +98,7 @@ export class RiderController {
     const { rider } = await this.getInfo.execute(body);
 
     return {
-      rider: rider,
+      rider: RiderViewModel.toHTTP(rider),
     };
   }
 
@@ -119,12 +122,9 @@ export class RiderController {
     });
   }
 
-  @Patch('update/role')
-  async roleUpdate(@Body() body: any) {
-    const { id, carId } = body;
-    await this.updateCarId.execute({
-      riderId: id,
-      id: carId,
-    });
+  @Patch('update/arg')
+  async roleUpdate(@Body() req: any) {
+    const { ...body } = req;
+    await this.updateArg.execute(body);
   }
 }

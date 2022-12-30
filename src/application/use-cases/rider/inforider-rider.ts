@@ -13,7 +13,7 @@ export class GetInfoRider {
   async execute(request: GetInfoRequest): Promise<GetInfoResponse> {
     const { ...body } = request;
 
-    console.log(body);
+    //console.log(body);
     const rider = await this.riderRepository.findByArg(body);
 
     return {

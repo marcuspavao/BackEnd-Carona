@@ -16,9 +16,6 @@ export interface RiderProps {
 }
 
 export class Rider {
-  static email(email: any) {
-    throw new Error('Method not implemented.');
-  }
   private _id: string;
   private props: RiderProps;
   static props: any;

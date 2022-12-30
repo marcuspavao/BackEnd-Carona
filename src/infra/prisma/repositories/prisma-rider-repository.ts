@@ -4,6 +4,11 @@ import { RiderRepository } from '@application/repositories/rider-repository';
 import { PrismaService } from '@infra/prisma/prisma.service';
 import { PrismaRiderMapper } from '@infra/prisma/mappers/prisma-rider-mapper';
 
+export interface updateParams {
+  where?: any;
+  data?: any;
+}
+
 @Injectable()
 export class PrismaRiderRepository implements RiderRepository {
   constructor(private prisma: PrismaService) {}
@@ -31,26 +36,34 @@ export class PrismaRiderRepository implements RiderRepository {
     return rider;
   }
 
-  getObjQuery = (prop: any) => {
-    return { where: { prop } };
-  };
-
   async findByArg(req: any): Promise<any | null> {
     const { ...body } = req;
-    const props = ['email', 'riderId'];
-    let objQuery;
+    const props = ['riderId', 'cpf', 'email']; //Ordem de prioridade
+    let objQuery: any;
+    let a;
     props.map((element) => {
-      console.log(body.hasOwnProperty(element));
-      objQuery = this.getObjQuery(body.element);
+      if (body.hasOwnProperty(element)) {
+        if (body['riderId']) {
+          const query = `{"id": "${body[`${element}`]}"}`;
+          //console.log(JSON.parse(query));
+          a = JSON.parse(query);
+          objQuery = this.getObjQuery(a);
+        } else {
+          const query = `{"${element}": "${body[`${element}`]}"}`;
+          //console.log(JSON.parse(query));
+          a = JSON.parse(query);
+          objQuery = this.getObjQuery(a);
+        }
+        //objQuery.where.email = `${body[`${element}`]}`;
+      }
     });
-    console.log(JSON.stringify(objQuery));
+    console.log(objQuery);
     const rider = await this.prisma.rider.findFirst(objQuery);
 
     if (!rider) {
       return null;
     }
-
-    return rider;
+    return PrismaRiderMapper.toDomain(rider);
   }
 
   async findById(riderId: string): Promise<any | null> {
@@ -104,4 +117,49 @@ export class PrismaRiderRepository implements RiderRepository {
       },
     });
   }
+
+  async updateArg(req: any): Promise<void> {
+    //const { ...body } = req;
+    const raw = PrismaRiderMapper.toPrisma(req);
+    console.log(raw);
+    //console.log(body);
+    //console.log(raw);
+    await this.prisma.rider.update({ where: { id: raw.id }, data: raw });
+  }
+
+  /*   async updateArg(req: any): Promise<void> {
+    const { ...body } = req;
+    const raw = PrismaRiderMapper.toPrisma(body);
+    console.log(raw);
+    const where = JSON.parse(`{"id": "${raw['id']}"}`);
+    //const raw = PrismaRiderMapper.toPrisma(rider);
+    const props = ['role', 'carId', 'email', 'name', 'cpf'];
+    let query = '';
+    props.map((element) => {
+      if (raw[`${element}`]) {
+        query += `"${element}": "${raw[`${element}`]}",`;
+      }
+    });
+    const data = this.getFormatedJSON(query);
+    const objQuery = this.getObjQuery(where, data);
+    await this.prisma.rider.update(objQuery);
+  } */
+
+  getFormatedJSON = (string: string): JSON | null => {
+    string = string.substring(0, string.length - 1);
+    const data = JSON.parse(`{${string}}`);
+    return data;
+  };
+
+  getObjQuery = (prop?: any, update?: any | null): any => {
+    if (!update) {
+      return {
+        where: prop,
+      };
+    }
+    return {
+      where: prop,
+      data: update,
+    };
+  };
 }

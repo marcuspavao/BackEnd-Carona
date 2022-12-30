@@ -9,7 +9,7 @@ export class PrismaRiderMapper {
       name: rider.name,
       cpf: rider.cpf,
       carId: rider.carId,
-      email: rider.email.value,
+      email: rider.email.getemail,
       password: rider.password,
       passwordConfirmation: rider.passwordConfirmation,
       role: rider.role,

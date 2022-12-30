@@ -3,7 +3,7 @@ import validator from 'validator';
 export class Email {
   private readonly email: string;
 
-  get value(): string {
+  public get getemail(): any {
     return this.email;
   }
 
@@ -15,9 +15,9 @@ export class Email {
     const isEmailValid = this.validateEmail(email);
 
     if (!isEmailValid) {
+      console.log(email);
       throw new Error('Email invalid.');
     }
-
     this.email = email;
   }
 }

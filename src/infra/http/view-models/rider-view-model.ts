@@ -8,7 +8,7 @@ export class RiderViewModel {
       cpf: rider.cpf,
       carId: rider.carId,
       car: rider.car,
-      email: rider.email.value,
+      email: rider.email.getemail,
       password: rider.password,
       role: rider.role,
     };
