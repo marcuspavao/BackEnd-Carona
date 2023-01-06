@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { Email } from './email';
-import { hashSync } from 'bcrypt';
+import { hashSync } from 'bcryptjs';
 import { Role } from '@prisma/client';
 import { Car } from './car';
 
