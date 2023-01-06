@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "noUnusedLocals": true,
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
