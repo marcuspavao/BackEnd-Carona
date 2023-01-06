@@ -93,8 +93,8 @@ export class RiderController {
     };
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Roles(Role.ADMIN)
+  /* @UseGuards(AuthGuard('jwt'))
+  @Roles(Role.ADMIN) */
   @Get('')
   async getAllRiders() {
     const { riders } = await this.getAll.execute();
