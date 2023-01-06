@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { Email } from './email';
-import { hashSync } from 'bcryptjs';
+import { hashSync } from 'bcrypt';
 import { Role } from '@prisma/client';
 import { Car } from './car';
 
@@ -47,7 +47,7 @@ export class Rider {
   }
 
   public set password(password: string) {
-    this.props.password = password; //hashSync(password, 12);
+    this.props.password = hashSync(password, 12);
   }
 
   public get password(): string {
