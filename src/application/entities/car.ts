@@ -6,7 +6,6 @@ export interface CarProps {
   plate: string;
   riderId: string;
 }
-
 export class Car {
   private _id: string;
   private props: CarProps;
