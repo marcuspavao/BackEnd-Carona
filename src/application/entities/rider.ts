@@ -1,7 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { Email } from './email';
 import { hashSync } from 'bcrypt';
-import { Car, Role } from '@prisma/client';
+import { Role } from '@prisma/client';
+import { Car } from '@application/entities/Car';
 
 export interface RiderProps {
   name: string;
