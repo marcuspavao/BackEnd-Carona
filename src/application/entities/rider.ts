@@ -46,9 +46,9 @@ export class Rider {
     return this.props.role;
   }
 
-  /*   public set password(password: string) {
-    this.props.password = hashSync(password, 12);
-  } */
+  public set password(password: string) {
+    this.props.password = password; //hashSync(password, 12);
+  }
 
   public get password(): string {
     return this.props.password;
