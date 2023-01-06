@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Request,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
 import { CreateRiderBody } from '../dtos/create-rider-body';
 import { RiderViewModel } from '@infra/http/view-models/rider-view-model';
 import { CreateRider } from '@application/use-cases/rider/create-rider';
